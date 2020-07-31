@@ -84,14 +84,6 @@ if ( ! class_exists( 'TPWCP_Admin' ) ) {
 							'desc_tip' => __( 'Enter the cost of giftwrapping this product', 'tpwcp' ),
 						)
 					);
-					woocommerce_wp_textarea_input(
-						array(
-							'id'       => 'giftwrap_description',
-							'label'    => __( 'Giftwrap Description', 'tpwcp' ),
-							'type'     => '',
-							'desc_tip' => __( 'Enter the description of giftwrapping this product', 'tpwcp' ),
-						)
-					);
 					?>
 			</div>
 		</div>
@@ -119,11 +111,8 @@ if ( ! class_exists( 'TPWCP_Admin' ) ) {
 			$product->update_meta_data( 'include_custom_message', sanitize_text_field( $include_custom_message ) );
 
 			// Save the giftwrap_cost setting.
-			$giftwrap_cost = isset( $_POST['giftwrap_cost'] ) ? 'yes' : 'no';
+			$giftwrap_cost = isset( $_POST['giftwrap_cost'] ) ? $_POST['giftwrap_cost'] : '';
 			$product->update_meta_data( 'giftwrap_cost', sanitize_text_field( $giftwrap_cost ) );
-
-			$giftwrap_desc = isset( $_POST['giftwrap_description'] ) ? 'yes' : 'no';
-			$product->update_meta_data( 'giftwrap_description', sanitize_text_field( $giftwrap_desc ) );
 
 			$product->save();
 

@@ -621,7 +621,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	 *
 	 * @return void
 	 */
-	function woocommerce_gateway_name_init() {
+	function woocommerce_gateway_nameinit() {
 		if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
 			return;
 		}
@@ -647,7 +647,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 		add_filter( 'woocommerce_payment_gateways', 'woocommerce_add_gateway_name_gateway' );
 	}
-	add_action( 'plugins_loaded', 'woocommerce_gateway_name_init', 0 );
+	add_action( 'plugins_loaded', 'woocommerce_gateway_nameinit', 0 );
 
 	/**
 	 * Add a new country to countries list

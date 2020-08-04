@@ -124,4 +124,3 @@ function custom_taxonomy_post_type_book() {
 }
 add_action( 'init', 'custom_taxonomy_post_type_book' );
 
-

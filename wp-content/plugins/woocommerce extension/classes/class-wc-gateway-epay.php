@@ -50,4 +50,29 @@ class WC_Gateway_Epay extends WC_Payment_Gateway {
 			),
 		);
 	}
+
+	/**
+	 * Function for payment processing.
+	 *
+	 * @param mixed $order_id stores the specific order id.
+	 */
+	public function process_payment( $order_id ) {
+
+		$order = wc_get_order( $order_id );
+
+		// Mark as on-hold (we're awaiting the payment).
+		$order->update_status( 'on-hold', __( 'Awaiting offline payment', 'wc-gateway-offline' ) );
+
+		// Reduce stock levels.
+		$order->reduce_order_stock();
+
+		// Remove cart.
+		WC()->cart->empty_cart();
+
+		// Return thankyou redirect.
+		return array(
+			'result'   => 'success',
+			'redirect' => $this->get_return_url( $order ),
+		);
+	}
 }

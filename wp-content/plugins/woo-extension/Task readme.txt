@@ -29,6 +29,11 @@
     -saves the fields values to database
     -firstly it checks whether the field is set or not, if set assigns a 'yes' value to it, if not then assigns 'no'.
 
+> Function display_print_name_on_back_option()
+    -display an input field on product single page, just above add to cart button.
+    -here we first retrieve the data from database of the custom tab feild value.
+    -then checks if databse value is 'yes', then only it will display the input field.
+
 >Function add_name_to_print_cart_item( $cart_item_data )
     -Here we grab the input field text and associate it with the cart item using woocommerce_add_cart_item_data filter.
     -first we get the value using $_POST

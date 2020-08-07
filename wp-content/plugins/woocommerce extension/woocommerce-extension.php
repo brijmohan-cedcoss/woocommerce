@@ -1314,7 +1314,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 	add_filter( 'woocommerce_shipping_methods', 'add_your_shipping_method' );
 
-
 }
 
 

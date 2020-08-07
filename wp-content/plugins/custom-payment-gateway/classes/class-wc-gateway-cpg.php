@@ -21,9 +21,9 @@ class WC_Gateway_CPG extends WC_Payment_Gateway {
 
 		// Load the settings, Store all settings in a single database entry.
 		$this->init_settings();
-		$this->enabled         = $this->get_option( 'enabled' );
-		$this->title           = $this->get_option( 'title' );
-		$this->description     = $this->get_option( 'description' );
+		$this->enabled     = $this->get_option( 'enabled' );
+		$this->title       = $this->get_option( 'title' );
+		$this->description = $this->get_option( 'description' );
 
 		// This action hook saves the settings.
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -36,20 +36,20 @@ class WC_Gateway_CPG extends WC_Payment_Gateway {
 	 */
 	public function init_form_fields() {
 		$this->form_fields = array(
-			'enabled'              => array(
+			'enabled'     => array(
 				'title'   => __( 'Enable/Disable', 'woocommerce-cpg' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable Custom Payment', 'woocommerce-cpg' ),
 				'default' => 'yes',
 			),
-			'title'                => array(
+			'title'       => array(
 				'title'       => __( 'Gateway Title', 'woocommerce-cpg' ),
 				'type'        => 'text',
 				'description' => __( 'This controls the title', 'woocommerce-cpg' ),
 				'default'     => __( 'Custom Payment', 'woocommerce-cpg' ),
 				'desc_tip'    => true,
 			),
-			'description'          => array(
+			'description' => array(
 				'title'       => __( 'Customer Message', 'woocommerce-cpg' ),
 				'type'        => 'textarea',
 				'css'         => 'width:500px;',
@@ -77,15 +77,15 @@ class WC_Gateway_CPG extends WC_Payment_Gateway {
 		// It is recommended to use inique IDs, because other gateways could already use #ccNo, #expdate, #cvc.
 		echo '<div class="form-row form-row-wide">
 				<label>Card Number <span class="required">*</span></label>
-				<input id="cpg_card_number" type="text" autocomplete="off">
+				<input id="cpg_card_number" name="cpg_card_number" type="text" autocomplete="off">
 			</div>
 			<div class="form-row form-row-first">
 				<label>Expiry Date <span class="required">*</span></label>
-				<input id="cpg_exp_date" type="text" autocomplete="off" placeholder="MM / YY">
+				<input id="cpg_exp_date" name="cpg_exp_date" type="text" autocomplete="off" placeholder="MM / YY">
 			</div>
 			<div class="form-row form-row-last">
 				<label>Card Code (CVV) <span class="required">*</span></label>
-				<input id="cpg_cvv_number" type="password" autocomplete="off" placeholder="CVC">
+				<input id="cpg_cvv_number" name="cpg_cvv_number" type="password" autocomplete="off" placeholder="CVC">
 			</div>
 			<div class="clear"></div>';
 

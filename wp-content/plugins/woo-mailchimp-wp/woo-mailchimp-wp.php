@@ -33,9 +33,12 @@ function add_users_to_mailchimp_list( $user_id ) {
 	$user_nickname = get_user_meta( $user_id, 'nickname', true );
 
 	$body = array(
-		'firstName'     => $user_nickname,
 		'email_address' => $user_email,
-		'status'        => 'subscribed',
+		'status'        => 'subcribed',
+		'merge_fields'  => array(
+			'FNAME' => $user_nickname,
+			'LNAME' => '',
+		),
 	);
 
 	$args = array(
@@ -50,6 +53,7 @@ function add_users_to_mailchimp_list( $user_id ) {
 	);
 
 	$request = wp_remote_post( $url, $args );
+	print_r($request);
 
 }
 add_action( 'user_register', 'add_users_to_mailchimp_list', 10, 1 );

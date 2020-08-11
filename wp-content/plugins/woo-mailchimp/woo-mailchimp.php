@@ -1,13 +1,10 @@
 <?php
 /**
  * Plugin Name: Woo-Mailchimp
- * Plugin URI: http://woocommerce.com/products/woocommerce-extension/
- * Description: Mailchimp Integration to wooCommerce.
+ * Description: Adding Subscribers to MailChimp list Using API key.
  * Version: 1.0.0
  * Author: brij1234
- * Author URI: http://yourdomain.com/
  * Developer: brij1234
- * Developer URI: http://yourdomain.com/
  * Text Domain: woocommerce-extension
  * Domain Path: /languages
  * License: GNU General Public License v3.0
@@ -16,42 +13,58 @@
  * @package woocomerce extension
  */
 
-// for MailChimp API v3.0.
+/**
+ * Function to add subscribers to Mailchimp list.
+ *
+ * @return string
+ */
+function add_subscriber_to_mailchimp() {
 
-require 'MailChimp.php';  // path to API wrapper downloaded from GitHub.
-
-use \DrewM\MailChimp\MailChimp;
-
-function storeAddress() {
-
-	$key     = 'd338c3a163c3684c5b1bee646fa7a578-us17';
+	$api_key = 'd338c3a163c3684c5b1bee646fa7a578-us17';
 	$list_id = '68c239642e';
 
-	$merge_vars = array(
-		'FNAME'     => $_POST['fname'],
-		'LNAME'     => $_POST['lname'],
-	);
+	$member_id   = md5( strtolower( $_POST['email'] ) );
+	$data_center = 'us17';
+	$url         = 'https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/' . $member_id;
 
-	$mc = new MailChimp($key);
-
-	// add the email to your list.
-	$result = $mc->post( '/lists/' . $list_id . '/members',
+	$json = json_encode(
 		array(
 			'email_address' => $_POST['email'],
-			'merge_fields'  => $merge_vars,
-			'status'        => 'pending',  // double opt-in
-			// 'status'     => 'subscribed'  // single opt-in
+			'status'        => 'subscribed',
+			'merge_fields'  => array(
+				'FNAME' => $_POST['username'],
+			),
 		)
 	);
 
-	return json_encode( $result );
+	$ch = curl_init();
+
+	curl_setopt( $ch, CURLOPT_URL, $url );
+	curl_setopt(
+		$ch,
+		CURLOPT_HTTPHEADER,
+		array(
+			'Content-Type: application/json',
+			'Authorization: Basic ' . base64_encode( 'user:' . $api_key ),
+		)
+	);
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+	curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
+	curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'PUT' );
+	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+	curl_setopt( $ch, CURLOPT_POSTFIELDS, $json );
+
+	$result    = curl_exec( $ch );
+	$http_code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+
+	if ( $result === false ) {
+		echo 'Error no:' . curl_errno( $ch ) . '<br> Error message' . curl_error( $ch );
+	}
+
+	curl_close( $ch );
+
+	return $http_code . $result;
 
 }
 
-// If being called via ajax, run the function, else fail.
-
-if ( $_POST['ajax'] ) {
-	echo storeAddress(); // send the response back through Ajax.
-} else {
-	echo 'Method not allowed - please ensure JavaScript is enabled in this browser';
-}
+add_action( 'user_register', 'add_subscriber_to_mailchimp' );

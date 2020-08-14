@@ -28,13 +28,13 @@ function add_users_to_mailchimp_list( $user_id ) {
 
 	$member_id   = md5( strtolower( $user_email ) );
 	$data_center = 'us17';
-	$url         = 'https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/' . $member_id;
+	$url         = 'https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members';
 
 	$user_nickname = get_user_meta( $user_id, 'nickname', true );
 
 	$body = array(
 		'email_address' => $user_email,
-		'status'        => 'subcribed',
+		'status'        => 'subscribed',
 		'merge_fields'  => array(
 			'FNAME' => $user_nickname,
 			'LNAME' => '',
@@ -42,7 +42,7 @@ function add_users_to_mailchimp_list( $user_id ) {
 	);
 
 	$args = array(
-		'method'    => 'PUT',
+		'method'    => 'POST',
 		'timeout'   => 10,
 		'sslverify' => false,
 		'headers'   => array(
@@ -53,7 +53,7 @@ function add_users_to_mailchimp_list( $user_id ) {
 	);
 
 	$request = wp_remote_post( $url, $args );
-	print_r($request);
+	//print_r($request);
 
 }
 add_action( 'user_register', 'add_users_to_mailchimp_list', 10, 1 );

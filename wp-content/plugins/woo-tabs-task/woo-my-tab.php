@@ -63,9 +63,9 @@ function check_customers_order() {
 	$customer_orders = get_posts(
 		array(
 			'numberposts' => 1, // one order is enough to check whether the customer has bought somthing earlier or not.
-			'meta_key'    => '_customer_user',
 			'meta_value'  => get_current_user_id(),
 			'post_type'   => 'shop_order',
+			'post_status' => array( 'wc-processing', 'wc-completed', 'wc-cancelled' ),
 		)
 	);
 	return count( $customer_orders ) > 0 ? true : false;

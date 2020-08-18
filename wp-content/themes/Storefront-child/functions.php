@@ -31,7 +31,6 @@ function custom_post_type_book() {
 		'search_item'        => 'Search Book',
 		'not_found'          => 'No Books Found',
 		'not_found_in_trash' => 'No Books Found In Trash',
-		'parent_item_colon'  => 'Paren Item:',
 	);
 
 	register_post_type(

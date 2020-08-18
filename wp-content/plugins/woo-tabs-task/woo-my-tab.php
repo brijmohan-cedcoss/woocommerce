@@ -176,7 +176,7 @@ function last_order_endpoint_title( $title ) {
 
 	$endpoint = isset( $wp_query->query_vars['last-order-endpoint'] );
 
-	if ( $endpoint && ! is_admin() && is_main_query() && in_the_loop() && is_account_page() ) {
+	if ( $endpoint && ! is_admin() && in_the_loop() && is_account_page() ) {
 
 		$title = __( 'Last Order Details', 'woocommerce-extension' );
 

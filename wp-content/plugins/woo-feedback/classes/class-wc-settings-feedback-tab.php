@@ -56,23 +56,53 @@ class WC_Settings_Feedback_Tab {
 				'type' => 'checkbox',
 				'desc' => __( 'Enable/disable Feedback Form', 'woocommerce-extension' ),
 			),
-			'name_guest'    => array(
-				'id'   => 'wc_feedback_form_guest_name',
-				'name' => __( 'Enable Name', 'woocommerce-extension' ),
-				'type' => 'checkbox',
-				'desc' => __( 'Enable/disable Name option for users', 'woocommerce-extension' ),
+			'first_field'   => array(
+				'id'   => 'wc_feedback_form_first_field',
+				'name' => __( 'Title/Label For the First Field', 'woocommerce-extension' ),
+				'type' => 'text',
+				'desc' => __( 'Type the Name of field that you want to see on front end', 'woocommerce-extension' ),
 			),
-			'email_guest'   => array(
-				'id'   => 'wc_feedback_form_guest_email',
-				'name' => __( 'Enable Email', 'woocommerce-extension' ),
-				'type' => 'checkbox',
-				'desc' => __( 'Enable/disable Email option for users', 'woocommerce-extension' ),
+			'first_field_type' => array(
+				'id'   => 'wc_feedback_form_first_field_type',
+				'name' => __( 'Input Type For the First Field', 'woocommerce-extension' ),
+				'type' => 'text',
+				'desc' => __( 'Input Type of the field', 'woocommerce-extension' ),
 			),
-			'phone_guest'   => array(
-				'id'   => 'wc_feedback_form_guest_phone',
-				'name' => __( 'Enable Phone', 'woocommerce-extension' ),
-				'type' => 'checkbox',
-				'desc' => __( 'Enable/disable Phone option for users', 'woocommerce-extension' ),
+			'second_field'  => array(
+				'id'   => 'wc_feedback_form_second_field',
+				'name' => __( 'Title/Label for the Second Field', 'woocommerce-extension' ),
+				'type' => 'text',
+				'desc' => __( 'Type the Name of field that you want to see on front end', 'woocommerce-extension' ),
+			),
+			'second_field_type' => array(
+				'id'   => 'wc_feedback_form_second_field_type',
+				'name' => __( 'Input Type For the Second Field', 'woocommerce-extension' ),
+				'type' => 'text',
+				'desc' => __( 'Input Type of the field', 'woocommerce-extension' ),
+			),
+			'third_field'   => array(
+				'id'   => 'wc_feedback_form_third_field',
+				'name' => __( 'Title/Label for the Third Field', 'woocommerce-extension' ),
+				'type' => 'text',
+				'desc' => __( 'Type the Name of field that you want to see on front end', 'woocommerce-extension' ),
+			),
+			'third_field_type' => array(
+				'id'   => 'wc_feedback_form_third_field_type',
+				'name' => __( 'Input Type For the Third Field', 'woocommerce-extension' ),
+				'type' => 'text',
+				'desc' => __( 'Input Type of the field', 'woocommerce-extension' ),
+			),
+			'fourth_field'  => array(
+				'id'   => 'wc_feedback_form_fourth_field',
+				'name' => __( 'Title/Label for the Fourth Field', 'woocommerce-extension' ),
+				'type' => 'text',
+				'desc' => __( 'Type the Name of field that you want to see on front end', 'woocommerce-extension' ),
+			),
+			'fourth_field_type' => array(
+				'id'   => 'wc_feedback_form_fourth_field_type',
+				'name' => __( 'Input Type For the Fourth Field', 'woocommerce-extension' ),
+				'type' => 'text',
+				'desc' => __( 'Input Type of the field', 'woocommerce-extension' ),
 			),
 			'section_end'   => array(
 				'type' => 'sectionend',

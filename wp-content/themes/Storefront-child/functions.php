@@ -123,3 +123,17 @@ function custom_taxonomy_post_type_book() {
 }
 add_action( 'init', 'custom_taxonomy_post_type_book' );
 
+function test_custom_fields_taxonomy() {
+	?>
+	<div class="form-field">
+		<label><?php esc_html_e( 'Custom Text Field', 'test-plugin' ); ?> </label>
+		<input type="text" id="custom_text_field" name="custom_text_field" value="">
+		<p class="description"><?php esc_html_e( 'Enter any text', 'test-plugin' ); ?></p></br>
+		<label><?php esc_html_e( 'Upload an Image', 'test-plugin' ); ?></label>
+		<input type="hidden" id="custom_image_field" name="custom_image_field" value="">
+		<input type="button" id="upload_img" class="button" value="Upload an Image">
+	</div>
+	<?php
+}
+add_action( 'book_genre_add_form_fields', 'test_custom_fields_taxonomy' );
+

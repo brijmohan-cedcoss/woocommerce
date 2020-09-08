@@ -13,7 +13,7 @@
  */
 
 /**
- * Activate th plugin
+ * Activate the plugin
  */
 function test_activate_plugin() {
 	test_custom_post_type_books();
@@ -54,7 +54,7 @@ function test_custom_post_type_books() {
 			'show_in_rest'        => true,
 			'show_in_admin_bar'   => true,
 			'menu_icon'           => 'dashicons-book-alt',
-			'description'         => 'It is a custom post type for books.',
+			'description'         => __( 'It is a custom post type for books.', 'test-plugin' ),
 			'supports'            => array(
 				'title',
 				'comments',
@@ -67,7 +67,7 @@ function test_custom_post_type_books() {
 			'menu_position'       => 5,
 			'exclude_from_search' => false,
 			'rewrite'             => array(
-				'slug' => 'book',
+				'slug' => __( 'book', 'test-plugin' ),
 			),
 		)
 	);
@@ -106,7 +106,7 @@ function test_custom_taxonomy_books() {
 			'show_in_rest'      => true,
 			'query_var'         => true,
 			'rewrite'           => array(
-				'slug' => 'genre',
+				'slug' => __( 'genre', 'test-plugin' ),
 			),
 		),
 	);
@@ -174,7 +174,9 @@ function test_edit_custom_fields_taxonomy( $term, $taxonomy ) {
 			<input type="button" id="remove_img" class="button" value="Remove Image">
 		</td>
 		<td id="img_thumbnail" style="float: left; margin-right: 10px;">
+		<?php if ( '' !== $term_img ) { ?>
 			<img src="<?php echo $term_img; ?>" width="60px" height="60px"/>
+		<?php } ?>           
 		</td>
 	</tr>
 	<?php
@@ -188,7 +190,7 @@ add_action( 'book_genre_edit_form_fields', 'test_edit_custom_fields_taxonomy', 1
  * @param int $term_tax_id is the term taxnomony id of the term created.
  */
 function test_update_term_meta_taxonomy( $term_id, $term_tax_id ) {
-	if ( isset( $_POST['custom_text_field'] ) && '' !== $_POST['custom_text_field'] ) {
+	if ( isset( $_POST['custom_text_field'] ) ) {
 		$text = sanitize_text_field( $_POST['custom_text_field'] );
 		update_term_meta( $term_id, 'term_custom_text', $text );
 	}
@@ -210,3 +212,28 @@ function test_enqueue_scripts() {
 	wp_enqueue_script( 'test_media_script' );
 }
 add_action( 'admin_enqueue_scripts', 'test_enqueue_scripts' );
+
+/**
+ * Function to define dependency of plugin on test-theme
+ */
+function test_dependency_test_plugin() {
+	$theme      = wp_get_theme();
+	$theme_name = $theme->name;
+
+	if ( 'test-theme' !== $theme_name && 'test-theme' !== $theme->parent_theme ) {
+		add_action( 'admin_notices', 'test_theme_required' );
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+	}
+}
+add_action( 'admin_init', 'test_dependency_test_plugin' );
+
+/**
+ * Function to display test theme required message
+ */
+function test_theme_required() {
+	?>
+	<div class="error">
+		<p>Test theme needs to installed and active for this plugin to work efficiently.<br><a href="<?php echo admin_url( 'themes.php' ); ?>">&laquo; Return to Themes</a></p>
+	</div>
+	<?php
+}

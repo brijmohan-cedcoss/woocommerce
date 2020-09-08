@@ -34,10 +34,10 @@ $term_text = get_term_meta( $term->term_id, 'term_custom_text', true );
       <h2 class="post-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
       <div class="content clearfix">
         <div class="post-info">
-          <p><?php the_time(get_option('date_format')); ?> by <?php the_author(); ?></p>
+          <p><?php the_time(' F j, Y'); ?> by <?php the_author(); ?></p>
         </div>
         <div class="entry">
-          <?php the_content( __('Full story…') ); ?>
+          <?php the_content(); ?>
         </div>
       </div>
     </div><!--// end #post-XX -->

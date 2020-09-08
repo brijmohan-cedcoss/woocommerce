@@ -5,7 +5,7 @@ jQuery(document).ready(function($){
 
     $('#upload_img').click(function(e){
         e.preventDefault();
-        alert('hello');
+        //alert('hello');
 
         if( media_modal ) {
             media_modal.open();
@@ -22,19 +22,17 @@ jQuery(document).ready(function($){
 
             var attachment  = media_modal.state().get('selection').first().toJSON();
             var img =  attachment.sizes.thumbnail || attachment.sizes.medium || attachment.sizes.full;
-            console.log(attachment);
-            console.log(img);
+            //console.log(attachment);
+            //console.log(img);
             $('#custom_image_field').val( attachment.url );
             $('#img_thumbnail').find('img').attr( 'src', img.url );
         });
-
-        
 
          media_modal.open();
     });
 
     $(document).on('click', '#remove_img', function(e){
-        alert('hey');
+        //alert('hey');
         $('#custom_image_field').val('');
         $('#img_thumbnail').find('img').attr( 'src', '' );
     });

@@ -2,8 +2,6 @@
 /**
  * The template for displaying all single posts
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
- *
  * @package test-theme
  */
 
@@ -36,7 +34,7 @@ get_header();
             $query->the_post();
             ?>
             <div>
-                <div >
+                <div>
                     <div>
                         <?php the_post_thumbnail(); ?>
                     </div>

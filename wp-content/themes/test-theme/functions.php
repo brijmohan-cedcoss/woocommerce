@@ -177,3 +177,25 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+/**
+ * Function to define theme dependency on test-plugin
+ */
+function test_dependency_test_theme() {
+	
+	if ( is_admin() && current_user_can( 'activate_plugins' ) && ! is_plugin_active( 'test-plugin/test-plugin.php' ) ) {
+		add_action( 'admin_notices', 'test_plugin_notice' );
+	}	
+}
+add_action( 'admin_init', 'test_dependency_test_theme' );
+
+/**
+ * Function to display plugin required message
+ */
+function test_plugin_notice() {
+	?>
+	<div class="error">
+		<p>Test Plugin needs to installed and active for this theme to work efficiently.<br><a href="<?php echo admin_url( 'plugins.php' ); ?>">&laquo; Return to Plugins</a></p>
+	</div>
+	<?php
+}
